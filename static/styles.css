@@ -1,0 +1,64 @@
+/* quotes/static/css/styles.css */
+
+/* General body styling */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* More modern font */
+    margin: 0;
+    padding: 20px;
+    background-color: #e8eaf6; /* Softer background color for better contrast */
+    color: #2c3e50; /* Darker text for better readability */
+    text-align: center;
+    line-height: 1.6; /* Improve text readability */
+}
+
+/* Navigation menu styling */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: #512da8; /* Add background to the navigation bar */
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white; /* White color for better contrast against purple */
+    text-decoration: none;
+    font-weight: bold; /* Make links more prominent */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+nav ul li a:hover {
+    color: #ffeb3b; /* Change color on hover for better user interaction */
+}
+
+/* General list styling */
+ul li {
+    list-style-type: none;
+    padding: 5px 0;
+}
+
+/* Heading styling */
+h2 {
+    color: #673ab7; /* A more vibrant color for headings */
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Image styling */
+img {
+    max-width: 400px; /* Resize for consistency */
+    height: auto;
+    border-radius: 10px; /* Rounded corners for images */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+    transition: transform 0.3s ease; /* Add smooth zoom effect */
+}
+
+img:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
