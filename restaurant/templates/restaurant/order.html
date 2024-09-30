@@ -67,7 +67,9 @@
 
         <!-- Daily Special -->
         <h3 class="daily-special">Daily Special: {{ daily_special.name }} - ${{ daily_special.price }}</h3>
-
+        <label>
+            <input type="checkbox" name="daily_special" value="{{ daily_special.name }}"> Add Daily Special
+        </label>
         <!-- Special Instructions -->
         <h3>Special Instructions</h3>
         <textarea name="instructions" rows="4" cols="50" class="instructions"></textarea><br>

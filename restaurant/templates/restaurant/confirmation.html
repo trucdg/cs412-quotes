@@ -1,6 +1,57 @@
 <!-- restaurant/templates/restaurant/confirmation.html -->
+
 {% extends 'restaurant/base.html' %}
 
 {% block content %}
-    <h2> Thank you for your order</h2>
+
+<div>
+    <h2>Order Confirmation</h2>
+
+    <!-- Display customer information -->
+    <h3>Customer Information</h3>
+    <p><strong>Name:</strong> {{ customer_name }}</p>
+    <p><strong>Phone:</strong> {{ customer_phone }}</p>
+    <p><strong>Email:</strong> {{ customer_email }}</p>
+
+    <!-- Display selected items -->
+    <h3>Ordered Dishes</h3>
+    <ul>
+        {% for item in selected_items %}
+        <li>{{ item }}</li>
+        {% empty %}
+        <li>No items selected.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Display selected toppings (if any) -->
+    {% if selected_toppings %}
+    <h3>Selected Toppings</h3>
+    <ul>
+        {% for topping in selected_toppings %}
+        <li>{{ topping }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- Display daily special if selected -->
+    {% if selected_daily_special %}
+    <h3>Daily Special</h3>
+    <p>{{ selected_daily_special }}</p>
+    {% endif %}
+
+    <!-- Display special instructions (if any) -->
+    {% if special_instructions %}
+    <h3>Special Instructions</h3>
+    <p>{{ special_instructions }}</p>
+    {% endif %}
+
+    <!-- Display total price -->
+    <h3>Total Price: ${{ total_price }}</h3>
+
+    <!-- Display order time -->
+    <p>Order Time: {{ current_time }}</p>
+
+    <a href="{% url 'order' %}">Return to Order</a>
+</div>
+
 {% endblock %}

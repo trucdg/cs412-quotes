@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 import time, random
 
@@ -22,6 +22,31 @@ def main(request):
     }
     return render(request, 'restaurant/main.html', context)
 
+
+# Global variables to use in the order and submit view
+# Dict of regular dishes and their prices
+dishes = {
+        'Wonton Soup': 8,
+        'Egg Rolls': 6,
+        'Beef Noodle Soup with Brisket': 15,
+        'Special Combination Beef Noodle Soup': 16,
+    }
+
+# Extra toppings for the special combination and their prices
+toppings = {
+        'Extra Vegetables': 2,
+        'Extra Meatballs': 3,
+        'Extra Brisket': 4,
+        'Tendon': 3,
+    }
+
+# Dict of special dishes
+specials = {
+        'Spring Rolls': 7,
+        'Sate Beef Udon': 16,
+        'Grilled Chicken Vemicelli': 15
+    }
+
 def order(request):
     """
     Handle requests to url endpoint /restaurant/order
@@ -29,30 +54,6 @@ def order(request):
     Display the order page where customers can select pho noodle soup and other Vietnamese dishes.
     Pass a random "daily special" item to the order.html template
     """
-
-    # Dict of regular dishes and their prices
-    dishes = {
-        'Wonton Soup': 8,
-        'Egg Rolls': 6,
-        'Beef Noodle Soup with Brisket': 15,
-        'Special Combination Beef Noodle Soup': 16,
-    }
-
-    # Extra toppings for the special combination and their prices
-    toppings = {
-        'Extra Vegetables': 2,
-        'Extra Meatballs': 3,
-        'Extra Brisket': 4,
-        'Tendon': 3,
-    }
-
-    # Dict of special dishes
-    specials = {
-        'Spring Rolls': 7,
-        'Sate Beef Udon': 16,
-        'Grilled Chicken Vemicelli': 15
-    }
-
     # Randomly select a daily special
     daily_special_name = random.choice(list(specials.keys()))
     daily_special_price = specials[daily_special_name]
@@ -79,10 +80,52 @@ def submit(request):
 
     template_name = 'restaurant/confirmation.html'
 
+    total_price = 0
+
     # Handle form submission
     if request.POST:
         # get selected items and toppings
         print(request.POST)
-        #selected_items = request.POST.getlist('items')
 
-    return render(request, template_name)
+        selected_items = request.POST.getlist('items')
+        selected_toppings = request.POST.getlist('extras')
+        selected_daily_special = request.POST.get('daily_special')
+
+
+        # Retrieve the customer's personal information
+        customer_name = request.POST.get('name')
+        customer_phone = request.POST.get('phone')
+        customer_email = request.POST.get('email')
+
+        # Retrieve special instructions
+        special_instructions = request.POST.get('instructions', '')
+
+        # Calculate total price based on selected dishes and extras
+        for item in selected_items:
+            total_price += dishes.get(item, 0)
+
+        for topping in selected_toppings:
+            total_price += toppings.get(topping, 0)
+
+        # Add price for daily special if selected
+        if selected_daily_special:
+            daily_special_price = specials.get(selected_daily_special, 0)
+            total_price += daily_special_price
+        
+                # Context to pass to the confirmation page
+        context = {
+            'customer_name': customer_name,
+            'customer_phone': customer_phone,
+            'customer_email': customer_email,
+            'selected_items': selected_items,
+            'selected_toppings': selected_toppings,
+            'selected_daily_special': selected_daily_special,
+            'special_instructions': special_instructions,
+            'total_price': total_price,
+            'current_time': time.ctime()
+        }
+
+        return render(request, template_name, context)
+
+    # handle GET request on this URL
+    return redirect("order")
