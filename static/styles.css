@@ -176,3 +176,60 @@ h3 {
     color: #0275d8;
 }
 
+
+/* Confirmation page */
+/* Order details section */
+.confirmation-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-container h3 {
+    border-bottom: 2px solid #d9534f;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.confirmation-container ul {
+    margin: 0;
+    padding: 0;
+}
+
+.confirmation-container ul li {
+    margin: 5px 0;
+    padding: 10px;
+}
+
+.total-price {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #d9534f;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.ready-time {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    color: #5cb85c;
+}
+
+.order-time {
+    text-align: center;
+    margin-top: 10px;
+    color: #999;
+}
+
+/* Customer Information section */
+.customer-info {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}

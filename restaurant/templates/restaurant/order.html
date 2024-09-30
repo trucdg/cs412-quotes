@@ -6,7 +6,7 @@
 <div class="order-container">
     <h2>Order Your Favorite</h2>
 
-    <form method="POST" action="{% url 'submit' %}" class="order-form">
+    <form method="POST" action="{% url 'confirmation' %}" class="order-form">
         {% csrf_token %}
 
         <!-- Regular Dishes -->

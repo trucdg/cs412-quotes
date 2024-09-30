@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 import time, random
+from datetime import datetime, timedelta
 
 # Create your views here.
 
@@ -72,9 +73,9 @@ def order(request):
     return render(request, 'restaurant/order.html', context)
 
 
-def submit(request):
+def confirmation(request):
     """
-    Handle the form submission
+    Handle the form submission and confirmation
     Read data from the request and send it back to confirmation.html
     """
 
@@ -112,7 +113,10 @@ def submit(request):
             daily_special_price = specials.get(selected_daily_special, 0)
             total_price += daily_special_price
         
-                # Context to pass to the confirmation page
+                # Generate a random ready time (30-60 minutes from now)
+        ready_time = datetime.now() + timedelta(minutes=random.randint(30, 60))
+
+        # Context to pass to the confirmation page
         context = {
             'customer_name': customer_name,
             'customer_phone': customer_phone,
@@ -122,7 +126,8 @@ def submit(request):
             'selected_daily_special': selected_daily_special,
             'special_instructions': special_instructions,
             'total_price': total_price,
-            'current_time': time.ctime()
+            'ready_time': ready_time.strftime('%I:%M %p'),
+            'current_time': time.ctime(),
         }
 
         return render(request, template_name, context)
